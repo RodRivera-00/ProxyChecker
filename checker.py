@@ -85,12 +85,14 @@ def isAlive(pip,timeout):    						# Check if a proxy is alive
 		urllib2.install_opener(opener)        			# Install the opener
 		req=urllib2.Request('https://api.ipify.org/')		# Make the request
 		sock=urllib2.urlopen(req,None,timeout=timeout)
-		print(1 if (pip.split(":")[0] == sock.read()) else 0)
+		if (pip.split(":")[0] == sock.read()) :
+			return True
+		else:
+			return False
 	except urllib2.HTTPError, e:        				# Catch exceptions
 		return False
 	except Exception, details:
 		return False
-	return True
 
 def checkProxies():
 	while len(toCheck) > 0:
