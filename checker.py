@@ -149,7 +149,6 @@ for i in xrange(threadsnum):
 	threads[i].setDaemon(True)
 	action("Starting thread n: "+str(i+1))
 	threads[i].start()
-	time.sleep(0.25)
 
 action(str(threadsnum)+" threads started...")
 while checking:
