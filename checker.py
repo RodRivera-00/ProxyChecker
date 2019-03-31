@@ -86,10 +86,10 @@ def isAlive(pip,timeout):    						# Check if a proxy is alive
 		req=urllib2.Request('https://api.ipify.org/')		# Make the request
 		sock=urllib2.urlopen(req,None,timeout=timeout)		# Open url
 		print(sock.read())
-    	except urllib2.HTTPError, e:        				# Catch exceptions
-		return False
-	except Exception, details:
-		return False
+    	except urllib2.HTTPError, e:
+			return False
+		except Exception, details:
+			return False
     	return True
 
 def checkProxies():
