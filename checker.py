@@ -111,7 +111,6 @@ def checkProxies():
 			if(isAlive(proxy,timeout)):
 				working.append(proxy)
 				saveToFile(proxy)
-			else:
 		s.close()
 
 
