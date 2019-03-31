@@ -39,17 +39,13 @@ def isSocks(host, port, soc):
 	proxy = host+":"+port
 	try:
 		if(socks5(host,port,soc)):
-			action("%s is socks5." % proxy)
 			return True
 		if(socks4(host,port,soc)):
-			action("%s is socks4." % proxy)
 			return True
 			
 	except socket.timeout:
-		alert("Timeout during socks check: " + proxy)
 		return False
 	except socket.error:
-		alert("Connection refused during socks check: " + proxy)
 		return False
 
 def socks4(host, port, soc):						# Check if a proxy is Socks4 and alive
@@ -91,10 +87,8 @@ def isAlive(pip,timeout):    						# Check if a proxy is alive
 		sock=urllib2.urlopen(req,None,timeout=timeout)		# Open url
 		print(sock.read())
     	except urllib2.HTTPError, e:        				# Catch exceptions
-		error(pip+" throws: "+str(e.code))
 		return False
 	except Exception, details:
-		error(pip+" throws: "+str(details))
 		return False
     	return True
 
@@ -110,19 +104,15 @@ def checkProxies():
 		host = proxy.split(":")[0]
 		port = proxy.split(":")[1]
 		if int(port) < 0 or int(port) > 65536:
-			error("Invalid port for " + proxy)
 			continue
 		if(isSocks(host, port, s)):
 			socks.append(proxy)
 			saveToFile(proxy)
 		else:
-			alert("%s not a working socks 4/5." % proxy)
 			if(isAlive(proxy,timeout)):
-				action("Working http/https proxy found (%s)!" % proxy)
 				working.append(proxy)
 				saveToFile(proxy)
 			else:
-				error("%s not working.")
 		s.close()
 
 
