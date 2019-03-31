@@ -78,25 +78,24 @@ def socks5(host, port, soc):						# Check if a proxy is Socks5 and alive
 	return True
 
 def isAlive(pip,timeout):    						# Check if a proxy is alive
-    	try:        
+	try:        
 		proxy_handler = urllib2.ProxyHandler({'http': pip, 'https': pip})     # Setup proxy handler   
 		opener = urllib2.build_opener(proxy_handler)		
 		opener.addheaders = [('User-agent', 'Mozilla/5.0')]	# Some headers
 		urllib2.install_opener(opener)        			# Install the opener
 		req=urllib2.Request('https://api.ipify.org/')		# Make the request
-		sock=urllib2.urlopen(req,None,timeout=timeout)		# Open url
+		sock=urllib2.urlopen(req,None,timeout=timeout)
 		print(sock.read())
-    	except urllib2.HTTPError, e:
-			return False
-		except Exception, details:
-			return False
-    	return True
+	except urllib2.HTTPError, e:        				# Catch exceptions
+		return False
+	except Exception, details:
+		return False
+	return True
 
 def checkProxies():
 	while len(toCheck) > 0:
 		proxy = toCheck[0]
 		toCheck.pop(0)
-		alert("Checking %s" % proxy)
 
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.settimeout(timeout)
